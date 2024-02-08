@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.kuma.name | default "kuma-deployment" | quote }}
+  namespace: {{ .Values.kuma.namespace | default "kuma" | quote }}
+
+spec:
+  replicas: {{ .Values.deployment.replicas | default 2 }}
+  selector:
+    matchLabels: 
+      app: kuma
+  template:
+    metadata:
+      {{- with .Values.pod.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels: 
+        app: kuma
+    spec:
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: {{ .Values.storage.pvcName | default "kuma-pvc" | quote }}
+
+      containers:
+        - name: {{ .Values.container.name | default "kuma-container" | quote }}
+          image: louislam/uptime-kuma
+          ports:
+            - containerPort: 3001
+          imagePullPolicy: {{ .Values.container.pullPolicy | default "IfNotPresent" }}
+          volumeMounts:
+            - name: data
+              mountPath: /app/data
+
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

@@ -1,0 +1,42 @@
+kuma:
+  name: ""
+  namespace: ""
+
+deployment:
+  replicas: ""
+  matchLabels: ""
+
+pod:
+  podAnnotations: {}
+  matchLabels: {}
+  
+# Note that this chart was built with the usage of PV and PVC in mind
+storage:
+  pvcName: ""
+  pvName: ""
+  pvCapacity: ""
+  accessModes: ""
+  pvReclaimPolicy: ""
+  storageClassName: ""
+  localPath: ""
+
+  nodeAffinityNodeSelectorTermsKey: ""
+  nodeAffinityNodeSelectorTermsOperator: ""
+  nodeAffinityNodeSelectorTermsValue: ""
+
+container:
+  name: ""
+  pullPolicy: "" 
+
+service:
+  name: ""
+  type: ""
+  nodePort: "" # In case type == NodePort
+
+
+nodeSelector: {}
+
+affinity: {}
+
+tolerations: {}
+
