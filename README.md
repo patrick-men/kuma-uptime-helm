@@ -31,5 +31,10 @@ helm package .
 You can pull the chart by running the following command:
 
 ```bash
+helm repo add <name it as you want> https://patrick-men.github.io/kuma-uptime-helm/
+
+# verify that the last step worked
+helm search repo <name you chose before>
+
 helm pull https://patrick-men.github.io/kuma-uptime-helm/
 ```
