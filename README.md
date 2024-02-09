@@ -28,4 +28,8 @@ helm package .
 
 ## Pull the chart
 
-TODO: better description, link to uptime kuma repo
+You can pull the chart by running the following command:
+
+```bash
+helm pull https://patrick-men.github.io/kuma-uptime-helm/
+```
