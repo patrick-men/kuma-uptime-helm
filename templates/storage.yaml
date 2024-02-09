@@ -1,17 +1,36 @@
 apiVersion: v1
-kind: Service
+kind: PersistentVolume
 metadata:
-  name: {{ .Values.service.name | default "kuma-nodeport" | quote }}
+  name: {{ .Values.storage.pvName | default "kuma-pv" | quote }}
   namespace: {{ .Values.kuma.namespace | default "kuma" | quote }}
 spec:
-  type: {{ .Values.service.type | default "LoadBalancer" }}  
-  ports:
-  - protocol: TCP
-    port: 3001   
-    targetPort: 3001  
-    {{- if eq .Values.service.type "NodePort" }}
-    nodePort: {{ .Values.service.nodePort | default 33000 }}   
-    {{- end }}
-  selector:
-    app: kuma
+  capacity:
+    storage: {{ .Values.storage.pvCapacity | default "10Gi" | quote }}
+  accessModes:
+    - {{ .Values.storage.accessModes | default "ReadWriteOnce" }}
+  persistentVolumeReclaimPolicy: {{ .Values.storage.pvReclaimPolicy | default "Retain" }}
+  storageClassName: {{ .Values.storage.storageClassName | default "local-path" | quote }}
+  local:
+    path: {{ .Values.storage.localPath | default "/data" | quote }}
+  nodeAffinity:
+    required:
+     nodeSelectorTerms:
+        - matchExpressions:
+            - key: {{ .Values.storage.nodeAffinityNodeSelectorTermsKey }}
+              operator: {{ .Values.storage.nodeAffinityNodeSelectorTermsOperator }}
+              values:
+                - {{ .Values.storage.nodeAffinityNodeSelectorTermsValue }}
+---
 
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.storage.pcvName | default "kuma-pvc" | quote }}
+  namespace: {{ .Values.kuma.namespace | default "kuma" | quote }}
+spec:
+  accessModes:
+    - {{ .Values.storage.accessModes | default "ReadWriteOnce" }}
+  storageClassName: {{ .Values.storage.storageClassName | default "local-path" | quote }}
+  resources:
+    requests:
+      storage: {{ .Values.storage.pvCapacity | default "10Gi" | quote }}
