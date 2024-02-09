@@ -1,15 +1,13 @@
+# Here you can define the name and replica count of the deployment. The namespace will be used for all resources
 kuma:
   name: ""
   namespace: ""
-
-deployment:
   replicas: ""
-  matchLabels: ""
 
+# Here you can define annotations for the pod
 pod:
   podAnnotations: {}
-  matchLabels: {}
-  
+
 # Note that this chart was built with the usage of PV and PVC in mind
 storage:
   pvcName: ""
@@ -20,23 +18,25 @@ storage:
   storageClassName: ""
   localPath: ""
 
+  # Here you can specifiy the node for your PV/PVC to be deployed to. This may be necessary for certain k8s setups
   nodeAffinityNodeSelectorTermsKey: ""
   nodeAffinityNodeSelectorTermsOperator: ""
   nodeAffinityNodeSelectorTermsValue: ""
 
+# Here you can set the name and pull policy for the container
 container:
   name: ""
   pullPolicy: "" 
 
+# Here you can manage your service - which type of service should be deployed, as well as the ports
 service:
   name: ""
   type: ""
   nodePort: "" # In case type == NodePort
 
 
+# These values may be used if you want your deployment to go to a certain node
 nodeSelector: {}
-
 affinity: {}
-
 tolerations: {}
 
