@@ -10,6 +10,6 @@ entries:
     name: uptime-kuma
     type: application
     urls:
-    - https://patrick-men.github.io/kuma-uptime-helm/uptime-kuma-0.1.0.tgz
+    - https://github.com/patrick-men/kuma-uptime-helm/releases/download/v0.1.0/uptime-kuma-0.1.0.tgz
     version: 0.1.0
 generated: "2024-02-09T16:15:39.88422835+01:00"
