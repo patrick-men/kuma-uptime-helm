@@ -10,6 +10,7 @@ pod:
 
 # Note that this chart was built with the usage of PV and PVC in mind
 storage:
+  pvEnabled: ""
   pvcName: ""
   pvName: ""
   pvCapacity: ""
