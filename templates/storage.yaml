@@ -1,3 +1,4 @@
+{{- if .Values.storage.pvEnabled }}
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -20,6 +21,8 @@ spec:
               operator: {{ .Values.storage.nodeAffinityNodeSelectorTermsOperator }}
               values:
                 - {{ .Values.storage.nodeAffinityNodeSelectorTermsValue }}
+{{- end }}
+
 ---
 
 apiVersion: v1
