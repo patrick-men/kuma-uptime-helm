@@ -5,7 +5,7 @@ metadata:
   namespace: {{ .Values.kuma.namespace | default "kuma" | quote }}
 
 spec:
-  replicas: {{ .Values.deployment.replicas | default 2 }}
+  replicas: {{ .Values.kuma.replicas | default 2 }}
   selector:
     matchLabels: 
       app: kuma
